@@ -2,8 +2,8 @@
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(ARAnchorManager))]
 public class AR_TapToPlace_Objects : MonoBehaviour
 {
     public GameObject[] randomObjectsArray;
@@ -25,6 +25,8 @@ public class AR_TapToPlace_Objects : MonoBehaviour
     void Start()
     {
         m_RaycastManager = FindObjectOfType<ARRaycastManager>();
+        m_ARAnchorManager = FindObjectOfType<ARAnchorManager>();
+        m_PlaneManager = FindObjectOfType<ARPlaneManager>();
     }
 
     void Update()
@@ -34,6 +36,19 @@ public class AR_TapToPlace_Objects : MonoBehaviour
 
         if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
+            Touch touch = Input.GetTouch(0);
+            if (m_RaycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
+            {
+                TrackableId planeId = s_Hits[0].trackableId;
+                var referencePoint = m_ARAnchorManager.AttachAnchor(m_PlaneManager.GetPlane(planeId), placementPose);
+
+                if (referencePoint != null)
+                {
+                    DisabledPlaneDetecting();
+                    m_anchorReferences.Add(referencePoint);
+                }
+            }
+
             if (placedPrefabCount < maxPrefabSpawnCount)
             {
                 PlaceObjects();
@@ -43,7 +58,7 @@ public class AR_TapToPlace_Objects : MonoBehaviour
                 Destroy(placedPrefabObjs[0].gameObject);
                 placedPrefabObjs.RemoveAt(0);
                 placedPrefabCount--;
-
+                m_anchorReferences.RemoveAt(0);
                 PlaceObjects();
             }
         }
@@ -54,14 +69,6 @@ public class AR_TapToPlace_Objects : MonoBehaviour
         spawnedObject = Instantiate(randomObjectsArray[Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
         placedPrefabObjs.Add(spawnedObject);
         placedPrefabCount++;
-
-        TrackableId planeId = s_Hits[0].trackableId;
-        var anchor = m_ARAnchorManager.AddAnchor(new Pose(placementPose.position, Quaternion.identity));
-
-        if (anchor != null)
-        {
-            m_anchorReferences.Add(anchor);
-        }
     }
 
     private void UpdatePlacementIndicator()
@@ -74,6 +81,7 @@ public class AR_TapToPlace_Objects : MonoBehaviour
         else
         {
             placementIndicator.SetActive(false);
+            /// Appear a message
         }
     }
 
@@ -94,6 +102,11 @@ public class AR_TapToPlace_Objects : MonoBehaviour
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
-
-   
+    private void DisabledPlaneDetecting()
+    {
+        foreach (var plane in m_PlaneManager.trackables)
+        {
+            plane.gameObject.SetActive(false);
+        }
+    }
 }
