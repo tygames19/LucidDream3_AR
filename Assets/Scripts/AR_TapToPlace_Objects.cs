@@ -12,62 +12,68 @@ public class AR_TapToPlace_Objects : MonoBehaviour
     public int maxPrefabSpawnCount = 0;
 
     private List<GameObject> placedPrefabObjs = new List<GameObject>();
-    private List<ARAnchor> m_anchorReferences = new List<ARAnchor>();
+   // private List<ARAnchor> m_anchorReferences = new List<ARAnchor>();
     private List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     private int placedPrefabCount;
 
     private GameObject spawnedObject;
     private ARRaycastManager m_RaycastManager;
-    private ARAnchorManager m_ARAnchorManager;
+   // private ARAnchorManager m_ARAnchorManager;
     private ARPlaneManager m_PlaneManager;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
 
     public static event Action onPlacedObject;
 
+    void Awake()
+    {
+        m_RaycastManager = GetComponent<ARRaycastManager>();
+       // m_ARAnchorManager = GetComponent<ARAnchorManager>();
+        m_PlaneManager = GetComponent<ARPlaneManager>();
+    }
+
     void Start()
     {
-        m_RaycastManager = FindObjectOfType<ARRaycastManager>();
-        m_ARAnchorManager = FindObjectOfType<ARAnchorManager>();
-        m_PlaneManager = FindObjectOfType<ARPlaneManager>();
+        
     }
 
     void Update()
     {
-        UpdatePlacementPose();
         UpdatePlacementIndicator();
 
         if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Touch touch = Input.GetTouch(0);
+
             if (m_RaycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
             {
-                TrackableId planeId = s_Hits[0].trackableId;
-                var referencePoint = m_ARAnchorManager.AttachAnchor(m_PlaneManager.GetPlane(planeId), placementPose);
+                //TrackableId planeId = s_Hits[0].trackableId;
+                //var referencePoint = m_ARAnchorManager.AttachAnchor(m_PlaneManager.GetPlane(planeId), placementPose);
 
-                if (referencePoint != null)
+                //if (referencePoint != null)
+                //{
+                //    DisabledPlaneDetecting();
+                //    m_anchorReferences.Add(referencePoint);
+                //}
+
+                UpdatePlacementPose();
+
+                if (placedPrefabCount < maxPrefabSpawnCount)
                 {
-                    DisabledPlaneDetecting();
-                    m_anchorReferences.Add(referencePoint);
+                    PlaceObjects();
                 }
-            }
+                else
+                {
+                    Destroy(placedPrefabObjs[0].gameObject);
+                    placedPrefabObjs.RemoveAt(0);
+                    placedPrefabCount--;
+                    PlaceObjects();
+                }
 
-            if (placedPrefabCount < maxPrefabSpawnCount)
-            {
-                PlaceObjects();
-            }
-            else
-            {
-                Destroy(placedPrefabObjs[0].gameObject);
-                placedPrefabObjs.RemoveAt(0);
-                placedPrefabCount--;
-                m_anchorReferences.RemoveAt(0);
-                PlaceObjects();
-            }
-
-            if (onPlacedObject != null)
-            {
-                onPlacedObject();
+                if (onPlacedObject != null)
+                {
+                    onPlacedObject();
+                }
             }
         }
     }
@@ -110,11 +116,11 @@ public class AR_TapToPlace_Objects : MonoBehaviour
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
-    private void DisabledPlaneDetecting()
-    {
-        foreach (var plane in m_PlaneManager.trackables)
-        {
-            plane.gameObject.SetActive(false);
-        }
-    }
+    //private void DisabledPlaneDetecting()
+    //{
+    //    foreach (var plane in m_PlaneManager.trackables)
+    //    {
+    //        plane.gameObject.SetActive(false);
+    //    }
+    //}
 }
