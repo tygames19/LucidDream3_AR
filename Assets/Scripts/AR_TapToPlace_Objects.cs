@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
+using System;
 
 public class AR_TapToPlace_Objects : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class AR_TapToPlace_Objects : MonoBehaviour
     private ARPlaneManager m_PlaneManager;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
+
+    public static event Action onPlacedObject;
 
     void Start()
     {
@@ -61,12 +64,17 @@ public class AR_TapToPlace_Objects : MonoBehaviour
                 m_anchorReferences.RemoveAt(0);
                 PlaceObjects();
             }
+
+            if (onPlacedObject != null)
+            {
+                onPlacedObject();
+            }
         }
     }
 
     private void PlaceObjects()
     {
-        spawnedObject = Instantiate(randomObjectsArray[Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
+        spawnedObject = Instantiate(randomObjectsArray[UnityEngine.Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
         placedPrefabObjs.Add(spawnedObject);
         placedPrefabCount++;
     }
