@@ -46,12 +46,12 @@ public class DisableTrackedVisuals : MonoBehaviour
     
     void OnEnable()
     {
-        PlaceObjectsOnPlane.onPlacedObject += OnPlacedObject;
+        PlaceObjectsOnPlane2.onPlacedObject += OnPlacedObject;
     }
 
     void OnDisable()
     {
-        PlaceObjectsOnPlane.onPlacedObject -= OnPlacedObject;
+        PlaceObjectsOnPlane2.onPlacedObject -= OnPlacedObject;
     }
 
     void OnPlacedObject()

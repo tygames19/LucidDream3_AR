@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ReasonsUX_ko
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: ko
+    m_Code: ko-KR
   m_SharedData: {fileID: 11400000, guid: 4b685a2129bdd4b99847d9871d566acc, type: 2}
   m_Metadata:
     m_Items: []

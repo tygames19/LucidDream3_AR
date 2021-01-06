@@ -99,7 +99,7 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: b28fc5e6207d848e7a76edc85677ec3d
-    m_Address: ReasonsUX_ko
+    m_Address: ReasonsUX_ko-KR
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ko

@@ -167,8 +167,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca2f5befe0a9f74aa7b62bb150f9a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scheduledTime: 00:50:00
-  calledSceneName: AR_TestScene01
+  year: 2021
+  month: 1
+  day: 6
+  hour: 23
+  min: 35
+  sec: 0
+  s1_Min: 36
+  s1_Sec: 0
+  s2_Hour: 23
+  s2_Min: 37
+  s2_Sec: 0
+  s3_Hour: 23
+  s3_Min: 38
+  s3_Sec: 0
 --- !u!1 &321697339
 GameObject:
   m_ObjectHideFlags: 0
