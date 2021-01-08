@@ -6,9 +6,6 @@ using UnityEngine.XR.ARSubsystems;
 public class ImageTrackingObjectManager : MonoBehaviour
 {
     [SerializeField]
-    ARSession arSession;
-
-    [SerializeField]
     [Tooltip("Image manager on the AR Session Origin")]
     ARTrackedImageManager m_ImageManager;
 
@@ -89,11 +86,6 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
     static Guid s_FirstImageGUID;
     static Guid s_SecondImageGUID;
-
-    void Awake()
-    {
-        arSession.Reset();
-    }
 
     void OnEnable()
     {

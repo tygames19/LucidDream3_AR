@@ -54,17 +54,17 @@ public class base_Scene_Scheduler : MonoBehaviour
                     }
                     else
                     {
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3, LoadSceneMode.Single);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
                     }
                 }
                 else
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2, LoadSceneMode.Single);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
                 }
             }
             else
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
     }

@@ -169,17 +169,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   year: 2021
   month: 1
-  day: 6
-  hour: 23
-  min: 35
+  day: 7
+  hour: 10
+  min: 55
   sec: 0
-  s1_Min: 36
+  s1_Min: 56
   s1_Sec: 0
-  s2_Hour: 23
-  s2_Min: 37
+  s2_Hour: 10
+  s2_Min: 57
   s2_Sec: 0
-  s3_Hour: 23
-  s3_Min: 38
+  s3_Hour: 10
+  s3_Min: 58
   s3_Sec: 0
 --- !u!1 &321697339
 GameObject:
@@ -679,7 +679,6 @@ GameObject:
   - component: {fileID: 992500781}
   - component: {fileID: 992500780}
   - component: {fileID: 992500784}
-  - component: {fileID: 992500782}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -743,22 +742,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaycastPrefab: {fileID: 0}
---- !u!114 &992500782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992500777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc252b3c751134839a8699af7e6f4d80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_DisableFeaturePoints: 1
-  m_DisablePlaneRendering: 1
-  m_PointCloudManager: {fileID: 992500784}
-  m_PlaneManager: {fileID: 992500780}
 --- !u!114 &992500784
 MonoBehaviour:
   m_ObjectHideFlags: 0

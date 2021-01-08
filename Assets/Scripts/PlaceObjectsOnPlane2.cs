@@ -7,24 +7,8 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 public class PlaceObjectsOnPlane2 : MonoBehaviour
 {
-    //[SerializeField]
-    //[Tooltip("Instantiates this prefab on a plane at the touch location.")]
-    //GameObject m_PlacedPrefab;
-
-    ///// <summary>
-    ///// The prefab to instantiate on touch.
-    ///// </summary>
-    //public GameObject placedPrefab
-    //{
-    //    get { return m_PlacedPrefab; }
-    //    set { m_PlacedPrefab = value; }
-    //}
-
     [SerializeField]
     Camera arCamera;
-
-    [SerializeField]
-    ARSession arSession;
 
     [SerializeField]
     GameObject[] randomObjectsArray;
@@ -35,14 +19,11 @@ public class PlaceObjectsOnPlane2 : MonoBehaviour
     private List<GameObject> placedPrefabObjs = new List<GameObject>();
     private bool placementPoseIsValid = false;
     private Pose placementPose;
-    /// <summary>
+ 
     /// The object instantiated as a result of a successful raycast intersection with a plane.
-    /// </summary>
     public GameObject spawnedObject { get; private set; }
 
-    /// <summary>
     /// Invoked whenever an object is placed in on a plane.
-    /// </summary>
     public static event Action onPlacedObject;
 
     ARRaycastManager m_RaycastManager;
@@ -58,12 +39,11 @@ public class PlaceObjectsOnPlane2 : MonoBehaviour
     void Awake()
     {
         m_RaycastManager = GetComponent<ARRaycastManager>();
-        arSession.Reset();
     }
 
     void Start()
     {
-       
+     
     }
 
     void Update()
@@ -73,25 +53,23 @@ public class PlaceObjectsOnPlane2 : MonoBehaviour
 
         if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-                if (m_NumberOfPlacedObjects < m_MaxNumberOfObjectsToPlace)
-                {
-                    PlaceObjects();
-                }
-                else
-                {
-                    //spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
-                    Destroy(placedPrefabObjs[0].gameObject);
-                    placedPrefabObjs.RemoveAt(0);
-                    m_NumberOfPlacedObjects--;
-                    PlaceObjects();
-                }
+            if (m_NumberOfPlacedObjects < m_MaxNumberOfObjectsToPlace)
+            {
+                PlaceObjects();
+            }
+            else
+            {
+                //spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+                Destroy(placedPrefabObjs[0].gameObject);
+                placedPrefabObjs.RemoveAt(0);
+                m_NumberOfPlacedObjects--;
+                PlaceObjects();
+            }
 
-                if (onPlacedObject != null)
-                {
-                    onPlacedObject();
-                }
-            
-
+            if (onPlacedObject != null)
+            {
+                onPlacedObject();
+            }
         }
     }
     private void PlaceObjects()
