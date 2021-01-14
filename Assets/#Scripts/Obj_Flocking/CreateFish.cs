@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CreateFish : MonoBehaviour
@@ -17,7 +18,7 @@ public class CreateFish : MonoBehaviour
 
     public GameObject FishManager;//물고기 부모로 씬 관리하기 위해서 생성
 
-    int range_ = 5;
+    int range_ = 3;
     Vector3 randomRange;
     // Use this for initialization
     void Start()
@@ -37,7 +38,7 @@ public class CreateFish : MonoBehaviour
                 Random.Range(for_random_minus.z, for_random_plus.z));
 
             FishClone[i] = Instantiate(fishPrefab, randomRange, Quaternion.identity);
-            float ranSize = Random.Range(0.05f, 0.03f);
+            float ranSize = Random.Range(1f, 0.8f);
             FishClone[i].transform.localScale = new Vector3(ranSize, ranSize, ranSize);
             FishClone[i].transform.parent = FishManager.transform;
             /*

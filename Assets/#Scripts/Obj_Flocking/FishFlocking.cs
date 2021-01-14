@@ -10,8 +10,8 @@ public class FishFlocking : MonoBehaviour
     CreateFish ins_fish;
     public GameObject Benchmark_;
     public float speed = 0.001f;
-    float rotation_speed = 3.0f;
-    float neighbour_distance_ = 3.0f;
+    float rotation_speed = 1.2f;
+    float neighbour_distance_ = 2.0f;
 
     Vector3 averageHeading;
     Vector3 averagePosition;
@@ -32,7 +32,7 @@ public class FishFlocking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, Benchmark_.transform.position) >= 5)
+        if (Vector3.Distance(transform.position, Benchmark_.transform.position) >= 3)
         {//######## 여기에 숫자10이 전체의 범위입니다. 조정하셔야 하는 부분입니다. ########
             turning = true;
         }
