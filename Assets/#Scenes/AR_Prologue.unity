@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishPrefab: {fileID: 1594624603}
-  Benchmark: {fileID: 1359620281}
+  Benchmark: {fileID: 992500777}
   FishManager: {fileID: 1848051239}
 --- !u!4 &353905301
 Transform:
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8f52a23df5a6af4dbc47d6c753a84ce, type: 3}
   m_Name: 
@@ -373,7 +373,6 @@ GameObject:
   - component: {fileID: 992500780}
   - component: {fileID: 992500784}
   - component: {fileID: 992500783}
-  - component: {fileID: 992500782}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -437,27 +436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaycastPrefab: {fileID: 0}
---- !u!114 &992500782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992500777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc252b3c751134839a8699af7e6f4d80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_DisableFeaturePoints: 1
-  m_DisablePlaneRendering: 1
-  currentPlane: {fileID: 7743506195872086079, guid: d9435242cdbe1e14885e7ada44b37e22,
-    type: 3}
-  mats:
-  - {fileID: 2100000, guid: 6c0ab268490e28f4aa0eea21bbecb611, type: 2}
-  - {fileID: 2100000, guid: d6b768313798b43399468566cbfc8808, type: 2}
-  m_PointCloudManager: {fileID: 992500784}
-  m_PlaneManager: {fileID: 992500780}
 --- !u!114 &992500783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,12 +448,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446fc7fee4cf2ad4daa02222a84869c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arCamera: {fileID: 1359620282}
   randomObjectsArray:
   - {fileID: 2015590043951611857, guid: 74e310c8171382d45b504a8577a2d0fd, type: 3}
+  m_MaxNumberOfObjectsToPlace: 5
   placementIndicator: {fileID: 7502888569478466268, guid: 4725ec2b65c87444e962daba95eaa8ff,
     type: 3}
-  m_MaxNumberOfObjectsToPlace: 5
+  currentPlane: {fileID: 7743506195872086079, guid: d9435242cdbe1e14885e7ada44b37e22,
+    type: 3}
+  mats:
+  - {fileID: 2100000, guid: 6c0ab268490e28f4aa0eea21bbecb611, type: 2}
+  - {fileID: 2100000, guid: d6b768313798b43399468566cbfc8808, type: 2}
 --- !u!114 &992500784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,11 +579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 2048, y: 1536}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -714,8 +696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142.7, y: -37}
-  m_SizeDelta: {x: 1334.6, y: 120}
+  m_AnchoredPosition: {x: 144, y: -50}
+  m_SizeDelta: {x: 1600, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1098605275
 MonoBehaviour:
@@ -767,8 +749,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -854,6 +836,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1848051240}
     m_Modifications:
+    - target: {fileID: 1932050666981057190, guid: d0796d3ca6c77704da624830220213cb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8212088845395908660, guid: d0796d3ca6c77704da624830220213cb,
         type: 3}
       propertyPath: m_RootOrder
@@ -1087,9 +1074,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HumanSegmentationStencilMode: 3
-  m_HumanSegmentationDepthMode: 1
+  m_HumanSegmentationDepthMode: 2
   m_EnvironmentDepthMode: 3
-  m_OcclusionPreferenceMode: 0
+  m_OcclusionPreferenceMode: 1
 --- !u!65 &1359620288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1101,8 +1088,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0.2}
 --- !u!114 &1359620289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,7 +1345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247a81427d5ace4bb9c33dba6796473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Benchmark_: {fileID: 1359620281}
+  Benchmark_: {fileID: 992500777}
   speed: 0.001
 --- !u!1 &1765432497
 GameObject:
@@ -1376,7 +1363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1765432498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,16 +1371,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765432497}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c3b0ba7406cfec45bb9f2b5ad960641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   year: 2021
   month: 1
-  day: 13
-  next_Hour: 23
-  next_Min: 42
+  day: 15
+  next_Hour: 19
+  next_Min: 5
   next_Sec: 0
 --- !u!4 &1765432499
 Transform:
@@ -1474,8 +1461,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142.7, y: -37}
-  m_SizeDelta: {x: 960, y: 120}
+  m_AnchoredPosition: {x: 144, y: -50}
+  m_SizeDelta: {x: 1500, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1896317851
 MonoBehaviour:
@@ -1526,8 +1513,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1611,8 +1598,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48.5, y: -31.400024}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: 50, y: -48}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1900123027
 MonoBehaviour:

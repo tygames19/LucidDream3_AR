@@ -27,11 +27,6 @@ public class DisableTrackedVisuals : MonoBehaviour
     }
 
     [SerializeField]
-    MeshRenderer currentPlane;
-
-    public Material[] mats;  // for changing the material of the plane prefab.
-
-    [SerializeField]
     ARPointCloudManager m_PointCloudManager;
 
     public ARPointCloudManager pointCloudManager
@@ -51,12 +46,12 @@ public class DisableTrackedVisuals : MonoBehaviour
     
     void OnEnable()
     {
-        TapToPlaceOnPlane.onPlacedObject += OnPlacedObject;
+        PlaceObjectsOnPlane.onPlacedObject += OnPlacedObject;
     }
 
     void OnDisable()
     {
-        TapToPlaceOnPlane.onPlacedObject -= OnPlacedObject;
+        PlaceObjectsOnPlane.onPlacedObject -= OnPlacedObject;
     }
 
     void OnPlacedObject()
@@ -70,14 +65,7 @@ public class DisableTrackedVisuals : MonoBehaviour
         if (m_DisablePlaneRendering)
         {
             m_PlaneManager.SetTrackablesActive(false);
-            //m_PlaneManager.enabled = false;
-
-           currentPlane.material = mats[1];
+            m_PlaneManager.enabled = false;
         }
-    }
-
-    void Start()
-    {
-        currentPlane.material = mats[0];    
     }
 }

@@ -169,17 +169,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   year: 2021
   month: 1
-  day: 13
-  hour: 23
-  min: 40
+  day: 15
+  hour: 19
+  min: 0
   sec: 0
-  s1_Min: 42
+  s1_Min: 5
   s1_Sec: 0
-  s2_Hour: 23
-  s2_Min: 44
+  s2_Hour: 19
+  s2_Min: 10
   s2_Sec: 0
-  s3_Hour: 23
-  s3_Min: 46
+  s3_Hour: 19
+  s3_Min: 15
   s3_Sec: 0
 --- !u!1 &321697339
 GameObject:
@@ -494,7 +494,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8f52a23df5a6af4dbc47d6c753a84ce, type: 3}
   m_Name: 

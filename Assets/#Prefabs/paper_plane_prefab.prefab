@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4125471728267972529, guid: 2868cedffabb14443bcb4622197409d4, type: 3}
+  - {fileID: 2100000, guid: 74b37b072fed88942bd05c0eb32d2ba5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8212088845395908660}
   m_Layer: 0
-  m_Name: paper_plane
+  m_Name: paper_plane_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

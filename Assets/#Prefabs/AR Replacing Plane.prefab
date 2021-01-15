@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7743506195872086079}
   - component: {fileID: 2577548139500336680}
   m_Layer: 0
-  m_Name: AR Default Plane_OcculusionShader
+  m_Name: AR Replacing Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7502888569478466271}
   m_Layer: 0
-  m_Name: placementIndicator
+  m_Name: placementIndicator_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

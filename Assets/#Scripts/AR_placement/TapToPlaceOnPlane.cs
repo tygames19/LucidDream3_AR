@@ -4,41 +4,44 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-[RequireComponent(typeof(ARRaycastManager))]
 public class TapToPlaceOnPlane : MonoBehaviour
 {
-    [SerializeField]
-    Camera arCamera;
+    #region Properties
 
     [SerializeField]
-    GameObject[] randomObjectsArray;
-    
+    private GameObject[] randomObjectsArray;
+
     [SerializeField]
-    GameObject placementIndicator;
+    private int m_MaxNumberOfObjectsToPlace = 1;
+    int m_NumberOfPlacedObjects = 0;
 
     private List<GameObject> placedPrefabObjs = new List<GameObject>();
     private bool placementPoseIsValid = false;
+
+    private GameObject spawnedObject;
+
+    private ARRaycastManager m_RaycastManager;
+    private List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     private Pose placementPose;
- 
-    /// The object instantiated as a result of a successful raycast intersection with a plane.
-    public GameObject spawnedObject { get; private set; }
 
-    /// Invoked whenever an object is placed in on a plane.
-    public static event Action onPlacedObject;
-
-    ARRaycastManager m_RaycastManager;
-
-    static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    
+    private bool isDetectingOn = false;
+    private ARPointCloudManager m_pointCloudManager;
+    private ARPlaneManager m_planeManager;
 
     [SerializeField]
-    int m_MaxNumberOfObjectsToPlace = 1;
+    private GameObject placementIndicator;
 
-    int m_NumberOfPlacedObjects = 0;
+    [SerializeField]
+    private MeshRenderer currentPlane;
 
-    void Awake()
+    [SerializeField]
+    private Material[] mats;  // for changing the material of the plane prefab.
+    #endregion
+
+    void Start()
     {
-        m_RaycastManager = GetComponent<ARRaycastManager>();
+        m_RaycastManager = FindObjectOfType<ARRaycastManager>();
+        currentPlane.material = mats[0];
     }
 
     void Update()
@@ -50,23 +53,33 @@ public class TapToPlaceOnPlane : MonoBehaviour
         {
             if (m_NumberOfPlacedObjects < m_MaxNumberOfObjectsToPlace)
             {
+                isDetectingOn = m_NumberOfPlacedObjects > 0;
                 PlaceObjects();
+                DisableFeaturePoints();
             }
             else
             {
-                //spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
                 Destroy(placedPrefabObjs[0].gameObject);
                 placedPrefabObjs.RemoveAt(0);
                 m_NumberOfPlacedObjects--;
                 PlaceObjects();
             }
-
-            if (onPlacedObject != null)
-            {
-                onPlacedObject();
-            }
         }
     }
+
+    private void DisableFeaturePoints()
+    {
+        if (isDetectingOn)
+        {
+            m_pointCloudManager.SetTrackablesActive(false);
+            m_pointCloudManager.enabled = false;
+
+            m_planeManager.SetTrackablesActive(false);
+            currentPlane.material = mats[1];
+        }
+
+    }
+
     private void PlaceObjects()
     {
         spawnedObject = Instantiate(randomObjectsArray[UnityEngine.Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
@@ -74,7 +87,6 @@ public class TapToPlaceOnPlane : MonoBehaviour
         m_NumberOfPlacedObjects++;
     }
 
-    // Second apply
     private void UpdatePlacementIndicator()
     {
         if (placementPoseIsValid)
@@ -88,11 +100,10 @@ public class TapToPlaceOnPlane : MonoBehaviour
         }
     }
 
-    // First apply
     private void UpdatePlacementPose()
     {
-        var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.PlaneWithinPolygon);
+        var screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f); // Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.Planes);
 
         placementPoseIsValid = s_Hits.Count > 0;
 
@@ -101,7 +112,7 @@ public class TapToPlaceOnPlane : MonoBehaviour
             placementPose = s_Hits[0].pose;
 
             /// rotate the placement indicator based on the camera direction.
-            var cameraForward = arCamera.transform.forward;
+            var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }

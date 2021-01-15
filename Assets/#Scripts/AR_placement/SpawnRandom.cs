@@ -4,39 +4,42 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-[RequireComponent(typeof(ARRaycastManager))]
 public class SpawnRandom : MonoBehaviour
 {
-    public GameObject spawnedPrefab;
-    //public Transform center;
-    public Vector3 size;
-    public int maxNum = 0;
+    #region
+    [SerializeField]
+    private GameObject spawnedPrefab;
+
+    [SerializeField]
+    private GameObject matrixPeople;
+
+    [SerializeField]
+    private Vector3 size;
+
+    [SerializeField]
+    private int maxNum = 0;
 
     private int spawnedNum;
-    private Pose placementPose;
-    private GameObject spawnedObject;
-    private bool placementPoseIsValid = false;
-    private List<GameObject> placedPrefabObjs = new List<GameObject>();
     private int peopleCount = 0;
 
-    ARRaycastManager m_RaycastManager;
-    static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    private GameObject spawnedObject;
+    private List<GameObject> placedPrefabObjs = new List<GameObject>();
+    private bool placementPoseIsValid = false;
 
-    public Camera arCamera;
-    public GameObject matrixPeople;
-    public GameObject placementIndicator;
+    private ARRaycastManager m_RaycastManager;
+    private List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    private Pose placementPose;
 
-
-    void Awake()
-    {
-        m_RaycastManager = GetComponent<ARRaycastManager>();
-    }
+    [SerializeField]
+    private GameObject placementIndicator;
+    #endregion
 
     void Start()
     {
+        m_RaycastManager = FindObjectOfType<ARRaycastManager>();
         InvokeRepeating("SpawnEvery20sec", 120, 10);
     }
-    
+
     void Update()
     {
         UpdatePlacementPose();
@@ -51,26 +54,18 @@ public class SpawnRandom : MonoBehaviour
                 spawnedNum++;
                 placedPrefabObjs.Add(spawnedObject);
             }
-        }
 
-        //while (spawnedNum < maxNum)
-        //{
-        //    Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(-size.z, size.z));
-        //    spawnedObject = Instantiate(spawnedPrefab, spawnPos, placementPose.rotation);
-        //    spawnedNum++;
-        //    placedPrefabObjs.Add(spawnedObject);
-        //}
+            if (spawnedNum >= maxNum)
+            {
+                placementIndicator.SetActive(false);
+            }
 
-        if (spawnedNum >= maxNum)
-        {
-            placementIndicator.SetActive(false);
+            if (peopleCount >= maxNum)
+            {
+                peopleCount = 0;
+            }
         }
-
-        if (peopleCount >= maxNum)
-        {
-            peopleCount = 0;
-        }
-    }
+    } 
 
     void SpawnEvery20sec()
     {
@@ -83,19 +78,7 @@ public class SpawnRandom : MonoBehaviour
             Instantiate(matrixPeople, mp_pos, mp_rot);
             peopleCount++;
         }
-        // matrixPeople.transform.position = placementPose.position + new Vector3(0, 0, 2);
-        // matrixPeople.transform.rotation = placementPose.rotation;
     }
-
-    //public void placeRandom()
-    //{
-    //    ///will get the middle of the screen
-    //    //Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/2, Screen.height/2, Camera.main.nearClipPlane+5));
-    //    //Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), Camera.main.farClipPlane / 2));
-    //    Vector3 pos = center.position + new Vector3(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2), Random.Range(-size.z / 2, size.z));
-    //    spawnedObject = Instantiate(spawnedPrefab, pos, Quaternion.identity);
-    //    spawnedNum++;
-    //}
 
     private void UpdatePlacementIndicator()
     {
@@ -112,8 +95,8 @@ public class SpawnRandom : MonoBehaviour
 
     private void UpdatePlacementPose()
     {
-        var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.PlaneWithinPolygon);
+        var screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f); //Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.Planes);
 
         placementPoseIsValid = s_Hits.Count > 0;
 
@@ -122,7 +105,7 @@ public class SpawnRandom : MonoBehaviour
             placementPose = s_Hits[0].pose;
 
             /// rotate the placement indicator based on the camera direction.
-            var cameraForward = arCamera.transform.forward;
+            var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
