@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Timeline;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using Random = UnityEngine.Random;
 
 public class SpreadObjs_onTheFloor : MonoBehaviour
 {
-    #region
+    #region Properties
     [SerializeField]
-    GameObject[] randomObjArray;
+    private GameObject[] randomObjArray;
 
     [SerializeField]
     private int maxNum = 0;
@@ -18,90 +18,54 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
     [SerializeField]
     private Vector3 size;
 
-    private int spawnedNum;
+    int placedNum;
 
-    private GameObject spawnedObject;
-    private List<GameObject> placedPrefabObjs = new List<GameObject>();
-    private bool placementPoseIsValid = false;
+    bool placementPoseIsValid = false;
 
-    private ARRaycastManager m_RaycastManager;
-    private List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    private Pose placementPose;
+    ARRaycastManager arRaycastManager;
+    List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    Pose placementPose;
 
     [SerializeField]
     private GameObject placementIndicator;
 
-    [SerializeField]
-    private Animator glitchAnim;
-
-    [SerializeField]
-    private GameObject guideoff;
-
-    [SerializeField]
-    private GameObject guideOn;
-
-    [SerializeField]
-    private PlayableDirector timeline;
+    public static event Action onSpawnObjValid;
 
     #endregion
 
     void Start()
     {
-        m_RaycastManager = FindObjectOfType<ARRaycastManager>();
+        arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        placementIndicator.SetActive(false);
     }
 
     void Update()
     {
         UpdatePlacementPose();
-        UpdatePlacementIndicator();
 
-        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            while (spawnedNum < maxNum)
+            while (placedNum < maxNum)
             {
                 Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(-size.z, size.z));
-                spawnedObject = Instantiate(randomObjArray[Random.Range(0, randomObjArray.Length)], spawnPos, placementPose.rotation);
-                spawnedNum++;
-                placedPrefabObjs.Add(spawnedObject);
+                Instantiate(randomObjArray[Random.Range(0, randomObjArray.Length)], spawnPos, placementPose.rotation);
+                placedNum++;
+            }
+
+            if (onSpawnObjValid != null)
+            {
+                onSpawnObjValid();
             }
         }
 
-        if (spawnedNum >= maxNum)
-        {
-            placementIndicator.SetActive(false);
-            TimeIsComing();
-        }
-    }
-
-    private void TimeIsComing()
-    {
-        guideoff.SetActive(false);
-        guideOn.SetActive(true);
-        timeline.Play();
-        glitchAnim.gameObject.SetActive(true);
-    }
-
-    private void UpdatePlacementIndicator()
-    {
-        if (placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
     }
 
     private void UpdatePlacementPose()
     {
-        var screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
-        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.Planes);
+        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        arRaycastManager.Raycast(screenCenter, s_Hits, TrackableType.PlaneWithinPolygon);
 
-        placementPoseIsValid = s_Hits.Count > 0;
-
-        if (placementPoseIsValid)
+        if (s_Hits.Count > 0)
         {
             placementPose = s_Hits[0].pose;
 
@@ -109,6 +73,15 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+
+            placementIndicator.SetActive(true);
+            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+            placementPoseIsValid = true;
+        }
+        else
+        {
+            placementIndicator.SetActive(false);
         }
     }
 }

@@ -169,17 +169,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   year: 2021
   month: 1
-  day: 15
-  hour: 19
-  min: 0
+  day: 16
+  hour: 14
+  min: 5
   sec: 0
-  s1_Min: 5
+  s1_Min: 10
   s1_Sec: 0
-  s2_Hour: 19
-  s2_Min: 10
+  s2_Hour: 14
+  s2_Min: 15
   s2_Sec: 0
-  s3_Hour: 19
-  s3_Min: 15
+  s3_Hour: 14
+  s3_Min: 20
   s3_Sec: 0
 --- !u!1 &321697339
 GameObject:
@@ -713,7 +713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 6752845605804511835, guid: d9435242cdbe1e14885e7ada44b37e22,
     type: 3}
-  m_DetectionMode: 1
+  m_DetectionMode: -1
 --- !u!114 &992500781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,10 +1100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15f82cc229284894964d2d30806969d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HumanSegmentationStencilMode: 3
-  m_HumanSegmentationDepthMode: 1
-  m_EnvironmentDepthMode: 3
-  m_OcclusionPreferenceMode: 0
+  m_HumanSegmentationStencilMode: 2
+  m_HumanSegmentationDepthMode: 2
+  m_EnvironmentDepthMode: 2
+  m_OcclusionPreferenceMode: 1
 --- !u!1 &1441568224
 GameObject:
   m_ObjectHideFlags: 0

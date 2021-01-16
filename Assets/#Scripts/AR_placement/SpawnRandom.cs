@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using Random = UnityEngine.Random;
 
 public class SpawnRandom : MonoBehaviour
 {
@@ -19,33 +20,34 @@ public class SpawnRandom : MonoBehaviour
     [SerializeField]
     private int maxNum = 0;
 
-    private int spawnedNum;
-    private int peopleCount = 0;
+    int spawnedNum;
+    int peopleCount = 0;
 
-    private GameObject spawnedObject;
-    private List<GameObject> placedPrefabObjs = new List<GameObject>();
-    private bool placementPoseIsValid = false;
+    GameObject spawnedObject;
+    List<GameObject> placedPrefabObjs = new List<GameObject>();
+    bool placementPoseIsValid = false;
 
-    private ARRaycastManager m_RaycastManager;
-    private List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    private Pose placementPose;
+    ARRaycastManager arRaycastManager;
+    List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    Pose placementPose;
 
     [SerializeField]
     private GameObject placementIndicator;
+
+    public static event Action isMatrixValid;
     #endregion
 
     void Start()
     {
-        m_RaycastManager = FindObjectOfType<ARRaycastManager>();
-        InvokeRepeating("SpawnEvery20sec", 120, 10);
+        arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        placementIndicator.SetActive(false);
     }
 
     void Update()
     {
         UpdatePlacementPose();
-        UpdatePlacementIndicator();
 
-        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             while (spawnedNum < maxNum)
             {
@@ -55,14 +57,16 @@ public class SpawnRandom : MonoBehaviour
                 placedPrefabObjs.Add(spawnedObject);
             }
 
-            if (spawnedNum >= maxNum)
-            {
-                placementIndicator.SetActive(false);
-            }
-
             if (peopleCount >= maxNum)
             {
                 peopleCount = 0;
+            }
+
+            if (isMatrixValid != null)
+            {
+                isMatrixValid();
+
+                InvokeRepeating("SpawnEvery20sec", 10, 10);
             }
         }
     } 
@@ -70,7 +74,6 @@ public class SpawnRandom : MonoBehaviour
     void SpawnEvery20sec()
     {
         /// Matrix People Spawn.
-        /// 
         if (peopleCount < maxNum)
         {
             Vector3 mp_pos = placedPrefabObjs[peopleCount].transform.position;
@@ -80,27 +83,12 @@ public class SpawnRandom : MonoBehaviour
         }
     }
 
-    private void UpdatePlacementIndicator()
-    {
-        if (placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
-    }
-
     private void UpdatePlacementPose()
     {
-        var screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f); //Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.Planes);
+        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        arRaycastManager.Raycast(screenCenter, s_Hits, TrackableType.PlaneWithinPolygon);
 
-        placementPoseIsValid = s_Hits.Count > 0;
-
-        if (placementPoseIsValid)
+        if (s_Hits.Count > 0)
         {
             placementPose = s_Hits[0].pose;
 
@@ -108,6 +96,15 @@ public class SpawnRandom : MonoBehaviour
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+
+            placementIndicator.SetActive(true);
+            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+            placementPoseIsValid = true;
+        }
+        else
+        {
+            placementIndicator.SetActive(false);
         }
     }
 }

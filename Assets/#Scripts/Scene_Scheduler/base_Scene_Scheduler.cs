@@ -6,20 +6,34 @@ using UnityEngine.SceneManagement;
 
 public class base_Scene_Scheduler : MonoBehaviour
 {
-    public int year;
-    public int month;
-    public int day;
-    public int hour;
-    public int min;
-    public int sec;
-    public int s1_Min;
-    public int s1_Sec;
-    public int s2_Hour;
-    public int s2_Min;
-    public int s2_Sec;
-    public int s3_Hour;
-    public int s3_Min;
-    public int s3_Sec;
+    [SerializeField]
+    private int year;
+    [SerializeField]
+    private int month;
+    [SerializeField]
+    private int day;
+    [SerializeField]
+    private int hour;
+    [SerializeField]
+    private int min;
+    [SerializeField]
+    private int sec;
+    [SerializeField]
+    private int s1_Min;
+    [SerializeField]
+    private int s1_Sec;
+    [SerializeField]
+    private int s2_Hour;
+    [SerializeField]
+    private int s2_Min;
+    [SerializeField]
+    private int s2_Sec;
+    [SerializeField]
+    private int s3_Hour;
+    [SerializeField]
+    private int s3_Min;
+    [SerializeField]
+    private int s3_Sec;
 
     DateTime now;// = DateTime.Now
 

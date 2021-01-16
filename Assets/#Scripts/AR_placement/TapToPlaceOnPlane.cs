@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using Random = UnityEngine.Random;
 
 public class TapToPlaceOnPlane : MonoBehaviour
 {
@@ -12,102 +13,76 @@ public class TapToPlaceOnPlane : MonoBehaviour
     private GameObject[] randomObjectsArray;
 
     [SerializeField]
-    private int m_MaxNumberOfObjectsToPlace = 1;
-    int m_NumberOfPlacedObjects = 0;
+    private int maxNumForSpawn = 1;
+    int palcedObjNum = 0;
 
-    private List<GameObject> placedPrefabObjs = new List<GameObject>();
-    private bool placementPoseIsValid = false;
+    List<GameObject> placedPrefabObjs = new List<GameObject>();
+    bool placementPoseIsValid = false;
 
-    private GameObject spawnedObject;
+    GameObject spawnedObject;
 
-    private ARRaycastManager m_RaycastManager;
-    private List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
-    private Pose placementPose;
-
-    private bool isDetectingOn = false;
-    private ARPointCloudManager m_pointCloudManager;
-    private ARPlaneManager m_planeManager;
+    ARRaycastManager arRaycastManager;
+    List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    Pose placementPose;
 
     [SerializeField]
     private GameObject placementIndicator;
 
     [SerializeField]
-    private MeshRenderer currentPlane;
+    private Transform benchMark;
 
-    [SerializeField]
-    private Material[] mats;  // for changing the material of the plane prefab.
+    public static event Action onPlacedObjValid;
+
     #endregion
 
     void Start()
     {
-        m_RaycastManager = FindObjectOfType<ARRaycastManager>();
-        currentPlane.material = mats[0];
+        arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        placementIndicator.SetActive(false);
     }
 
     void Update()
     {
         UpdatePlacementPose();
-        UpdatePlacementIndicator();
 
-        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            if (m_NumberOfPlacedObjects < m_MaxNumberOfObjectsToPlace)
+            if (palcedObjNum < maxNumForSpawn)
             {
-                isDetectingOn = m_NumberOfPlacedObjects > 0;
                 PlaceObjects();
-                DisableFeaturePoints();
+
             }
             else
             {
                 Destroy(placedPrefabObjs[0].gameObject);
                 placedPrefabObjs.RemoveAt(0);
-                m_NumberOfPlacedObjects--;
+                palcedObjNum--;
                 PlaceObjects();
+            }
+
+            if (onPlacedObjValid != null)
+            {
+                onPlacedObjValid();
+
+                benchMark.position = placementPose.position + new Vector3(0, 1.5f, 0);
+                benchMark.rotation = placementPose.rotation;
             }
         }
     }
 
-    private void DisableFeaturePoints()
-    {
-        if (isDetectingOn)
-        {
-            m_pointCloudManager.SetTrackablesActive(false);
-            m_pointCloudManager.enabled = false;
-
-            m_planeManager.SetTrackablesActive(false);
-            currentPlane.material = mats[1];
-        }
-
-    }
-
     private void PlaceObjects()
     {
-        spawnedObject = Instantiate(randomObjectsArray[UnityEngine.Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
+        spawnedObject = Instantiate(randomObjectsArray[Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
         placedPrefabObjs.Add(spawnedObject);
-        m_NumberOfPlacedObjects++;
-    }
-
-    private void UpdatePlacementIndicator()
-    {
-        if (placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
+        palcedObjNum++;
     }
 
     private void UpdatePlacementPose()
     {
-        var screenCenter = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f); // Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        m_RaycastManager.Raycast(screenCenter, s_Hits, TrackableType.Planes);
+        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        arRaycastManager.Raycast(screenCenter, s_Hits, TrackableType.PlaneWithinPolygon);
 
-        placementPoseIsValid = s_Hits.Count > 0;
-
-        if (placementPoseIsValid)
+        if (s_Hits.Count > 0)
         {
             placementPose = s_Hits[0].pose;
 
@@ -115,6 +90,15 @@ public class TapToPlaceOnPlane : MonoBehaviour
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+
+            placementIndicator.SetActive(true);
+            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+            placementPoseIsValid = true;
+        }
+        else
+        {
+            placementIndicator.SetActive(false);
         }
     }
 }

@@ -11,12 +11,18 @@ public class Call_theNextScene : MonoBehaviour
     DateTime now;
     DateTime nextScene_scheduledTime;
 
-    public int year;
-    public int month;
-    public int day;
-    public int next_Hour;
-    public int next_Min;
-    public int next_Sec;
+    [SerializeField]
+    private int year;
+    [SerializeField]
+    private int month;
+    [SerializeField]
+    private int day;
+    [SerializeField]
+    private int next_Hour;
+    [SerializeField]
+    private int next_Min;
+    [SerializeField]
+    private int next_Sec;
 
     void Start()
     {
