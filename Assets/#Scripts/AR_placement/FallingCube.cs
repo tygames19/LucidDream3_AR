@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -36,6 +37,8 @@ public class FallingCube : MonoBehaviour
     [SerializeField]
     private GameObject placementIndicator;
 
+    public static event Action isFallingValid;
+
     #endregion
 
     void Start()
@@ -60,6 +63,11 @@ public class FallingCube : MonoBehaviour
             }
 
             isFloorSet = true;
+
+            if (isFallingValid != null)
+            {
+                isFallingValid();
+            }
         }
     }
 

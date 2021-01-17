@@ -5,19 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/#Scenes/AR_HouseOpen.unity
     guid: 42ed6307ed3ff844c983aa05ecbacc5b
   - enabled: 1
     path: Assets/#Scenes/AR_Prologue.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
+  - enabled: 1
+    path: Assets/#Scenes/AR_Scene01.unity
+    guid: de27750a696b8ac48bd28adc40750b39
+  - enabled: 1
     path: Assets/#Scenes/AR_Scene02.unity
     guid: 6ed0ee47f352e8a429b803a07c7fa42d
-  - enabled: 0
+  - enabled: 1
     path: Assets/#Scenes/AR_Scene03_1.unity
     guid: b7bb3efadd75b4848af63de0bf9cbce7
-  - enabled: 0
+  - enabled: 1
     path: Assets/#Scenes/AR_Scene03_2.unity
     guid: de5d9664fde522248b2c9cb75735ea08
   m_configObjects:
