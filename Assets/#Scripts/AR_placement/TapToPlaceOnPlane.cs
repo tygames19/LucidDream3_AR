@@ -64,8 +64,7 @@ public class TapToPlaceOnPlane : MonoBehaviour
             {
                 onPlacedObjValid();
 
-                benchMark.position = placementPose.position + new Vector3(0, 1.5f, 0);
-                benchMark.rotation = placementPose.rotation;
+                benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
             }
         }
     }

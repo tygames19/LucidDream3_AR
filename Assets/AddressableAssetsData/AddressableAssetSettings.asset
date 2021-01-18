@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: 83a1ac0d7a7f75c47984a1c50e465d3e
+  m_CachedHash:
+    m_u32_0: 0
+    m_u32_1: 0
+    m_u32_2: 0
+    m_u32_3: 0
+  m_IsTemporary: 0
   m_BuildRemoteCatalog: 0
   m_DisableCatalogUpdateOnStart: 0
   m_UniqueBundleIds: 0
@@ -25,8 +31,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 61568416b377e2d46add02e8e56e7aac, type: 2}
   - {fileID: 11400000, guid: a92c36440e10085479794851ef8062c5, type: 2}
   - {fileID: 11400000, guid: adca6d9061952334fbf768d00dcc7265, type: 2}
-  - {fileID: 11400000, guid: 49be9b72d530e461d8d72f01e25c745f, type: 2}
-  - {fileID: 11400000, guid: 8de3058e6acc84191a1fad5276e1b130, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -76,6 +82,7 @@ MonoBehaviour:
   m_CertificateHandlerType:
     m_AssemblyName: 
     m_ClassName: 
+    <ValueChanged>k__BackingField: 0
   m_ActivePlayerDataBuilderIndex: 3
   m_DataBuilders:
   - {fileID: 11400000, guid: 06a6485010c93624e95c1e2ffc2a1b1d, type: 2}
@@ -88,3 +95,4 @@ MonoBehaviour:
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
     m_RegisteredServiceTypeRefs: []
+  m_DefaultGroupTemplateName: Packed Assets

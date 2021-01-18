@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Call_theNextScene : MonoBehaviour
 {
-   // public GameObject somethingToShowOnTime;
+    [SerializeField]
+    private GameObject somethingToShowOnTime;
+
+    [SerializeField]
+    private GameObject somethingToHideOnTime;
+
+    [SerializeField]
+    private Transform ref_pos;
 
     DateTime now;
+    DateTime nextAppear_scheduledTime;
     DateTime nextScene_scheduledTime;
 
     [SerializeField]
@@ -17,16 +26,25 @@ public class Call_theNextScene : MonoBehaviour
     private int month;
     [SerializeField]
     private int day;
+
     [SerializeField]
-    private int next_Hour;
+    private int nextA_Hour;
     [SerializeField]
-    private int next_Min;
+    private int nextA_Min;
     [SerializeField]
-    private int next_Sec;
+    private int nextA_Sec;
+
+    [SerializeField]
+    private int nextS_Hour;
+    [SerializeField]
+    private int nextS_Min;
+    [SerializeField]
+    private int nextS_Sec;
 
     void Start()
     {
-        nextScene_scheduledTime = new DateTime(year, month, day, next_Hour, next_Min, next_Sec);
+        nextAppear_scheduledTime = new DateTime(year, month, day, nextA_Hour, nextA_Min, nextA_Sec);
+        nextScene_scheduledTime = new DateTime(year, month, day, nextS_Hour, nextS_Min, nextS_Sec);
     }
 
   
@@ -39,12 +57,14 @@ public class Call_theNextScene : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
         }
 
-        /// Something to show on time.
-        //int onTime = DateTime.Compare(now, s1_scheduledTime);
-        //if (onTime > 0)
-        //{
-        //    somethingToShowOnTime.SetActive(true);
-        //}
+        // Something to show on time.
+        int onTime = DateTime.Compare(now, nextAppear_scheduledTime);
+        if (onTime > 0)
+        {
+            Destroy(somethingToHideOnTime);  
+            somethingToShowOnTime.SetActive(true);
+            somethingToShowOnTime.transform.SetPositionAndRotation(ref_pos.position, ref_pos.rotation);
+        }
     }
 
 }

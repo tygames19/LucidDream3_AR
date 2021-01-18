@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DestroyAnimObj : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    [SerializeField]
+    float delayTime;
+
     void Start()
     {
-        Destroy(this.gameObject, 5);
+        Destroy(this.gameObject, delayTime);
     }
 
     // Update is called once per frame

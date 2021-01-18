@@ -12,25 +12,25 @@ public class CreateFish : MonoBehaviour
     /*######## 중심점으로 들어갈 오브젝트입니다. 퍼블릭으로 넣어주세요.########*/
 
     public static Vector3 goalPos;// = mainCamera_.transform.position;
-    public static GameObject[] FishClone = new GameObject[20];
+    public static GameObject[] FishClone = new GameObject[14];
     /*######## 생성될 물고기 개수입니다. 열대어 1종류당 30개씩 총 90개가 생성됩니다.
             조정하셔야 하는 부분입니다.########*/
 
     public GameObject FishManager;//물고기 부모로 씬 관리하기 위해서 생성
 
-    int range_ = 10;
+    float range_ = 4.5f;
     Vector3 randomRange;
     // Use this for initialization
     void Start()
     {
         goalPos = Benchmark.transform.position;
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 14; i++)
         {/*######## 생성될 물고기 개수입니다. 열대어 1종류당 30개씩 총 90개가 생성됩니다.
            조정하셔야 하는 부분입니다.########*/
 
             Vector3 camMarked_pos = Benchmark.transform.position;
-            Vector3 for_random_minus = camMarked_pos - new Vector3(range_, 0, range_);
-            Vector3 for_random_plus = camMarked_pos + new Vector3(range_, 4.5f, range_);
+            Vector3 for_random_minus = camMarked_pos - new Vector3(range_, 0, 0);
+            Vector3 for_random_plus = camMarked_pos + new Vector3(range_, 2f, range_);
             print(for_random_minus + " // " + for_random_plus);
             randomRange = new Vector3(
                 Random.Range(for_random_minus.x, for_random_plus.x),
@@ -58,8 +58,8 @@ public class CreateFish : MonoBehaviour
         if (Random.Range(0, 10000) < 50)
         {
             Vector3 camMarked_pos = Benchmark.transform.position;
-            Vector3 for_random_minus = camMarked_pos - new Vector3(2.5f, 1.5f, 2.5f);
-            Vector3 for_random_plus = camMarked_pos + new Vector3(2.5f, 1.5f, 2.5f);
+            Vector3 for_random_minus = camMarked_pos - new Vector3(2.5f, 0, 0);
+            Vector3 for_random_plus = camMarked_pos + new Vector3(2.5f, 2f, 3.5f);
 
             goalPos = new Vector3(
                 Random.Range(for_random_minus.x, for_random_plus.x),

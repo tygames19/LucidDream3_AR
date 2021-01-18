@@ -10,7 +10,7 @@ public class FishFlocking : MonoBehaviour
     CreateFish ins_fish;
     public GameObject Benchmark_;
     public float speed = 0.001f;
-    float rotation_speed = 1.2f;
+    float rotation_speed = 3.0f;
     float neighbour_distance_ = 3.0f;
 
     Vector3 averageHeading;
