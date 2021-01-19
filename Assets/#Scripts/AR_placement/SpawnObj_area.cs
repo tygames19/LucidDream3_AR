@@ -8,8 +8,6 @@ public class SpawnObj_area : MonoBehaviour
     [SerializeField]
     int maxPlacedNum;
 
-    int peopleCount;
-
     [SerializeField]
     private GameObject[] placedPrefabs;
 
@@ -21,49 +19,75 @@ public class SpawnObj_area : MonoBehaviour
 
     GameObject spawnedObject;
     List<GameObject> placedPrefabObjs = new List<GameObject>();
-    List <int> list = new List<int> (); 
+    List <int> list = new List<int> ();
+
+    // Shuffle random number without repeating
+    int[] arrayNum = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }; // = randomPos number
+    List<int> forShuffle = null;
+
+    int[] setNum = new int[] { 0, 1, 2, 3, 4, 5 }; // = constellation number
+    List<int> shuffleList = null;
+
 
     void Start()
     {
         InvokeRepeating("SpawnEverySec", 12, 12);
-        FillList();
+        forShuffle.AddRange(arrayNum);
+        shuffleList.AddRange(setNum);
     }
-     
-     void FillList()
-     {
-         for(int i = 0; i < randomPos.Length; i++)
-         {
-             list.Add(i);
-         }
-     }
-     
-     int GetNonRepeatRandom()
-     {
-         if(list.Count == 0){
-             return -1; //  want to refill
-         }
-         int rand = Random.Range(0, list.Count);
-         int value = list[rand];
-         list.RemoveAt(rand);
-         return value;
-     }
-
 
     void SpawnEverySec()
     {
         /// Matrix People Spawn.
-        if (peopleCount < maxPlacedNum)
+        if (placedPrefabObjs.Count < maxPlacedNum)
         {
-            int nonRepeatingNum = GetNonRepeatRandom();
-            Vector3 mp_pos = randomPos[nonRepeatingNum].transform.position;
-            spawnedObject = Instantiate(placedPrefabs[Random.Range(0, placedPrefabs.Length)], mp_pos, Quaternion.identity);
-            peopleCount++;
+            Vector3 mp_pos = randomPos[GetUniqueRandom(true)].transform.position;
+            spawnedObject = Instantiate(placedPrefabs[GetUniqueRandom2(true)], mp_pos, ref_pos.rotation);
             placedPrefabObjs.Add(spawnedObject);
         }
     }
 
     void Update()
     {
-        Destroy(placedPrefabObjs[0], 12);  
+        Destroy(placedPrefabObjs[0], 13);  
+    }
+
+
+    int GetUniqueRandom(bool reloadEmptyList)
+    {
+        if (forShuffle.Count == 0)
+        {
+            if (reloadEmptyList)
+            {
+                forShuffle.AddRange(arrayNum);
+            }
+            else
+            {
+                return -1; // finite loop. 
+            }
+        }
+        int rand = Random.Range(0, forShuffle.Count);
+        int value = forShuffle[rand];
+        forShuffle.RemoveAt(rand);
+        return value;
+    }
+
+    int GetUniqueRandom2(bool reloadEmptyList2)
+    {
+        if (shuffleList.Count == 0)
+        {
+            if (reloadEmptyList2)
+            {
+                shuffleList.AddRange(setNum);
+            }
+            else
+            {
+                return -1; // finite loop. 
+            }
+        }
+        int rand = Random.Range(0, shuffleList.Count);
+        int value = shuffleList[rand];
+        shuffleList.RemoveAt(rand);
+        return value;
     }
 }

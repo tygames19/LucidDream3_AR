@@ -8,23 +8,25 @@ using Random = UnityEngine.Random;
 public class SpawnRandom : MonoBehaviour
 {
     #region
-    [SerializeField]
-    private GameObject spawnedPrefab;
+    //[SerializeField]
+    //private GameObject spawnedPrefab;
 
-    [SerializeField]
-    private GameObject matrixPeople;
+    //[SerializeField]
+    //private GameObject matrixPeople;
 
-    [SerializeField]
-    private Vector3 size;
+    //[SerializeField]
+    //private Vector3 size;
 
-    [SerializeField]
-    private int maxNum = 0;
+    //[SerializeField]
+    //private int maxNum = 0;
 
-    int spawnedNum;
-    int peopleCount = 0;
+    //int spawnedNum;
+    //int peopleCount = 0;
 
-    GameObject spawnedObject;
-    List<GameObject> placedPrefabObjs = new List<GameObject>();
+    //GameObject spawnedObject;
+    //GameObject matrixObj;
+    //List<GameObject> matrixPeopleArray = new List<GameObject>();
+    //List<GameObject> placedPrefabObjs = new List<GameObject>();
     bool placementPoseIsValid = false;
 
     ARRaycastManager arRaycastManager;
@@ -33,6 +35,9 @@ public class SpawnRandom : MonoBehaviour
 
     [SerializeField]
     private GameObject placementIndicator;
+
+    [SerializeField]
+    private Transform benchMark;
 
     public static event Action isMatrixValid;
     #endregion
@@ -49,39 +54,45 @@ public class SpawnRandom : MonoBehaviour
 
         if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            while (spawnedNum < maxNum)
-            {
-                Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(-size.z, size.z));
-                spawnedObject = Instantiate(spawnedPrefab, spawnPos, placementPose.rotation);
-                spawnedNum++;
-                placedPrefabObjs.Add(spawnedObject);
-            }
+            //while (spawnedNum < maxNum)
+            //{
+            //    Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(0, size.z));
+            //    spawnedObject = Instantiate(spawnedPrefab, spawnPos, placementPose.rotation);
+            //    spawnedNum++;
+            //    placedPrefabObjs.Add(spawnedObject);
+            //}
 
-            if (peopleCount >= maxNum)
-            {
-                peopleCount = 0;
-            }
+            //if (peopleCount >= maxNum)
+            //{
+            //    peopleCount = 0;
+            //}
 
             if (isMatrixValid != null)
             {
                 isMatrixValid();
-
-                InvokeRepeating("SpawnEvery20sec", 10, 10);
+                benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+               // InvokeRepeating("SpawnEvery20sec", 8, 8);
             }
         }
     } 
 
-    void SpawnEvery20sec()
-    {
-        /// Matrix People Spawn.
-        if (peopleCount < maxNum)
-        {
-            Vector3 mp_pos = placedPrefabObjs[peopleCount].transform.position;
-            Quaternion mp_rot = Quaternion.Euler(placedPrefabObjs[peopleCount].transform.rotation.x, Random.Range(0, 180), placedPrefabObjs[peopleCount].transform.rotation.z);
-            Instantiate(matrixPeople, mp_pos, mp_rot);
-            peopleCount++;
-        }
-    }
+    //void SpawnEvery20sec()
+    //{
+    //    /// Matrix People Spawn.
+    //    if (peopleCount < maxNum)
+    //    {
+    //        Vector3 mp_pos = placedPrefabObjs[peopleCount].transform.position;
+    //        Quaternion mp_rot = Quaternion.Euler(placedPrefabObjs[peopleCount].transform.rotation.x, Random.Range(0, 180), placedPrefabObjs[peopleCount].transform.rotation.z);
+    //        matrixObj = Instantiate(matrixPeople, mp_pos, mp_rot);
+    //        matrixPeopleArray.Add(matrixObj);
+    //        peopleCount++;
+    //    }
+
+    //    if (peopleCount > 2)
+    //    {
+    //        Destroy(matrixPeopleArray[0]);
+    //    }
+    //}
 
     private void UpdatePlacementPose()
     {

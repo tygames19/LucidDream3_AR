@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
+using UnityEngine.XR.ARFoundation;
 
-public class Call_theNextScene : MonoBehaviour
+public class Call_theNextScene1 : MonoBehaviour
 {
     [SerializeField]
     private GameObject somethingToShowOnTime;
@@ -41,6 +41,15 @@ public class Call_theNextScene : MonoBehaviour
     [SerializeField]
     private int nextS_Sec;
 
+    [SerializeField]
+    ARPlaneManager _arPlaneManager;
+
+    [SerializeField]
+    ARPointCloudManager _pointCloudManager;
+
+    [SerializeField]
+    GameObject matrixManager;
+
     void Start()
     {
         nextAppear_scheduledTime = new DateTime(year, month, day, nextA_Hour, nextA_Min, nextA_Sec);
@@ -61,6 +70,11 @@ public class Call_theNextScene : MonoBehaviour
         int onTime = DateTime.Compare(now, nextAppear_scheduledTime);
         if (onTime > 0)
         {
+            _arPlaneManager.SetTrackablesActive(false);
+            _arPlaneManager.enabled = false;
+            _pointCloudManager.SetTrackablesActive(false);
+            _pointCloudManager.enabled = false;
+            matrixManager.SetActive(false);
             Destroy(somethingToHideOnTime);  
             somethingToShowOnTime.SetActive(true);
             somethingToShowOnTime.transform.SetPositionAndRotation(ref_pos.position, ref_pos.rotation);

@@ -47,8 +47,19 @@ public class DisablePlaneCloud : MonoBehaviour
     [SerializeField]
     private Material[] mats;
 
+    [Header("Appear at the first touch")]
     [SerializeField]
     private GameObject paperPlanes;
+
+    [SerializeField]
+    private GameObject guide02;
+
+    [SerializeField]
+    private Transform benchMark;
+
+    [Header("Need to turn off")]
+    [SerializeField]
+    private GameObject guide01;
 
     void OnEnable()
     {
@@ -74,6 +85,9 @@ public class DisablePlaneCloud : MonoBehaviour
             currentPlane.material = mats[1];
 
             paperPlanes.SetActive(true);
+            paperPlanes.transform.SetPositionAndRotation(benchMark.position, benchMark.rotation);
+            guide01.SetActive(false);
+            guide02.SetActive(true);
         }
     }
 

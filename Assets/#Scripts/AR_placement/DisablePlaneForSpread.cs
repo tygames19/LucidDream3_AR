@@ -36,15 +36,6 @@ public class DisablePlaneForSpread : MonoBehaviour
     [SerializeField]
     ARPlaneManager _arPlaneManager;
 
-    [SerializeField]
-    private GameObject placementIndicator;
-
-    [SerializeField]
-    private GameObject guideOff;
-
-    [SerializeField]
-    private GameObject guideOn;
-
     public ARPlaneManager arPlanemanager
     {
         get => _arPlaneManager;
@@ -52,10 +43,24 @@ public class DisablePlaneForSpread : MonoBehaviour
     }
 
     [SerializeField]
+    private Transform benchMark;
+
+    [Header("Appear at the first touch")]
+    [SerializeField]
     private GameObject glitch;
 
     [SerializeField]
-    private GameObject guideTimeline;
+    private GameObject bodyParts;
+
+    [SerializeField]
+    private GameObject guide01;
+
+    [Header("Need to turn off")]
+    [SerializeField]
+    private GameObject placementIndicator;
+
+    [SerializeField]
+    private GameObject guide02;
 
     void OnEnable()
     {
@@ -82,10 +87,11 @@ public class DisablePlaneForSpread : MonoBehaviour
             _arPlaneManager.SetTrackablesActive(false);
             _arPlaneManager.enabled = false;
 
-            guideOn.SetActive(false);
-            guideOff.SetActive(true);
-            guideTimeline.GetComponent<PlayableDirector>().Play();
+            guide02.SetActive(false);
+            guide01.SetActive(true);
 
+            bodyParts.SetActive(true);
+            bodyParts.transform.SetPositionAndRotation(benchMark.position, benchMark.rotation);
             glitch.GetComponent<Animator>().Play("GlitchAnim_custom01");
         }
     }

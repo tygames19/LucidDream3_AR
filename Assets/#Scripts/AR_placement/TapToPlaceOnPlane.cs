@@ -10,11 +10,10 @@ public class TapToPlaceOnPlane : MonoBehaviour
     #region Properties
 
     [SerializeField]
-    private GameObject[] randomObjectsArray;
+    private GameObject[] randomObjectsArray; // need to shuffle and not repeat
 
     [SerializeField]
     private int maxNumForSpawn = 1;
-    int palcedObjNum = 0;
 
     List<GameObject> placedPrefabObjs = new List<GameObject>();
     bool placementPoseIsValid = false;
@@ -31,6 +30,10 @@ public class TapToPlaceOnPlane : MonoBehaviour
     [SerializeField]
     private Transform benchMark;
 
+    // Shuffle random number without repeating
+    int[] arrayNum = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }; // = randomobjectsArray number
+    List<int> forShuffle = null;
+
     public static event Action onPlacedObjValid;
 
     #endregion
@@ -39,6 +42,7 @@ public class TapToPlaceOnPlane : MonoBehaviour
     {
         arRaycastManager = FindObjectOfType<ARRaycastManager>();
         placementIndicator.SetActive(false);
+        forShuffle.AddRange(arrayNum);
     }
 
     void Update()
@@ -47,19 +51,17 @@ public class TapToPlaceOnPlane : MonoBehaviour
 
         if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            if (palcedObjNum < maxNumForSpawn)
-            {
-                PlaceObjects();
+            PlaceObjects();
 
-            }
-            else
-            {
+            if (placedPrefabObjs.Count > maxNumForSpawn)
+            {   
+                // 맥스 이상되면 지워라.
                 Destroy(placedPrefabObjs[0].gameObject);
                 placedPrefabObjs.RemoveAt(0);
-                palcedObjNum--;
                 PlaceObjects();
             }
 
+            // activate at the first touch 
             if (onPlacedObjValid != null)
             {
                 onPlacedObjValid();
@@ -71,9 +73,8 @@ public class TapToPlaceOnPlane : MonoBehaviour
 
     private void PlaceObjects()
     {
-        spawnedObject = Instantiate(randomObjectsArray[Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
+        spawnedObject = Instantiate(randomObjectsArray[GetUniqueRandom(true)], placementPose.position, placementPose.rotation);
         placedPrefabObjs.Add(spawnedObject);
-        palcedObjNum++;
     }
 
     private void UpdatePlacementPose()
@@ -99,5 +100,24 @@ public class TapToPlaceOnPlane : MonoBehaviour
         {
             placementIndicator.SetActive(false);
         }
+    }
+
+    int GetUniqueRandom(bool reloadEmptyList)
+    {
+        if (forShuffle.Count == 0)
+        {
+            if (reloadEmptyList)
+            {
+                forShuffle.AddRange(arrayNum);
+            }
+            else
+            {
+                return -1; // finite loop. 
+            }
+        }
+        int rand = Random.Range(0, forShuffle.Count);
+        int value = forShuffle[rand];
+        forShuffle.RemoveAt(rand);
+        return value;
     }
 }

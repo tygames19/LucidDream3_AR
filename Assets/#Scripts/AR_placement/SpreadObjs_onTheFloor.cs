@@ -9,16 +9,16 @@ using Random = UnityEngine.Random;
 public class SpreadObjs_onTheFloor : MonoBehaviour
 {
     #region Properties
-    [SerializeField]
-    private GameObject[] randomObjArray;
+    //[SerializeField]
+    //private GameObject[] randomObjArray;
 
-    [SerializeField]
-    private int maxNum = 0;
+    //[SerializeField]
+    //private int maxNum = 0;
 
-    [SerializeField]
-    private Vector3 size;
+    //[SerializeField]
+    //private Vector3 size;
 
-    int placedNum;
+    //int placedNum;
 
     bool placementPoseIsValid = false;
 
@@ -29,6 +29,9 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
     [SerializeField]
     private GameObject placementIndicator;
 
+    [SerializeField]
+    private Transform benchMark;
+
     public static event Action onSpawnObjValid;
 
     #endregion
@@ -36,7 +39,7 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
     void Start()
     {
         arRaycastManager = FindObjectOfType<ARRaycastManager>();
-        placementIndicator.SetActive(false);
+        placementIndicator.SetActive(false);   
     }
 
     void Update()
@@ -45,16 +48,17 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
 
         if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            while (placedNum < maxNum)
-            {
-                Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(-size.z, size.z));
-                Instantiate(randomObjArray[Random.Range(0, randomObjArray.Length)], spawnPos, placementPose.rotation);
-                placedNum++;
-            }
+            //while (placedNum < maxNum)
+            //{
+            //    Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(-size.z, size.z));
+            //    Instantiate(randomObjArray[Random.Range(0, randomObjArray.Length)], spawnPos, placementPose.rotation);
+            //    placedNum++;
+            //}
 
             if (onSpawnObjValid != null)
             {
                 onSpawnObjValid();
+                benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
             }
         }
 
