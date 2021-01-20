@@ -30,9 +30,6 @@ public class Explosion_FX : MonoBehaviour
     //float cubesPivotDistance;
     //Vector3 cubesPivot;
 
-    [SerializeField]
-    Transform benchMark;
-
     void Start()
     {
         //// calculate pivot distance
@@ -59,11 +56,11 @@ public class Explosion_FX : MonoBehaviour
 
     public void DeathParticleSpawn()
     {
-        Vector3 colliderPos = new Vector3(transform.position.x, benchMark.position.y, transform.position.z);
+        GameObject colliderFloor = GameObject.FindWithTag("Trig_floor");
+        Vector3 colliderPos = gameObject.transform.position + new Vector3 (0, colliderFloor.transform.position.y, 0);
         Instantiate(deathParticle, colliderPos, Quaternion.identity);
         Destroy(gameObject);
-        Debug.Log(transform.position);
-        
+        //Debug.Log(transform.position);
     }
 
     //public void Explode()

@@ -188,7 +188,7 @@ MonoBehaviour:
     type: 3}
   benchMark: {fileID: 944886082}
   trig_floor: {fileID: 1858309063817376576}
-  size: {x: 6, y: 0, z: 10}
+  size: {x: 25, y: 0, z: 25}
   height: 15
   minInterval: 2
   maxInterval: 5
@@ -872,7 +872,7 @@ MonoBehaviour:
     type: 3}
   matrixPeople: {fileID: 7650634415513916379, guid: b74820f7cfbfefc43906b82edfe5efa6,
     type: 3}
-  size: {x: 7, y: 0, z: 14}
+  size: {x: 30, y: 0, z: 30}
   maxNum: 20
   placementIndicator: {fileID: 7325842873914557180}
   benchMark: {fileID: 944886082}
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   day: 20
   benchMark: {fileID: 944886082}
   nextA1_Hour: 20
-  nextA1_Min: 34
+  nextA1_Min: 46
   nextA1_Sec: 0
   nextS_Hour: 20
   nextS_Min: 50
@@ -2924,7 +2924,7 @@ Transform:
   m_GameObject: {fileID: 1858309063817376576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 0.01, z: 10}
+  m_LocalScale: {x: 25, y: 0.01, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
