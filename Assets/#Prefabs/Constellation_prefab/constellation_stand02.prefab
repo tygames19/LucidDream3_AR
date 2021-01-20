@@ -69,7 +69,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4127793557668422158}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -81,7 +81,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2477152504647978758, guid: 38a2f3eea3b93d246bf630ebcef83ca6, type: 3}
+  - {fileID: 2100000, guid: a131b163a9239704eaafa5d718e8feea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6530,7 +6530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69a7209947958d4ba08540eff270630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAngle: -42
+  targetAngle: 42
   objectToRotate: {fileID: 4127793557668422454}
   duration: 10
 --- !u!1 &4127793557668422455

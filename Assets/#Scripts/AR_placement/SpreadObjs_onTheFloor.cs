@@ -18,19 +18,20 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
     //[SerializeField]
     //private Vector3 size;
 
-    //int placedNum;
-
     bool placementPoseIsValid = false;
+    bool benchMarkIsSet = false;
+    //List<GameObject> placedObjPrefabs = new List<GameObject>();
+    //GameObject spawnedObj;
 
     ARRaycastManager arRaycastManager;
     List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     Pose placementPose;
 
     [SerializeField]
-    private GameObject placementIndicator;
+    private GameObject bodyParts;
 
     [SerializeField]
-    private Transform benchMark;
+    private GameObject placementIndicator;
 
     public static event Action onSpawnObjValid;
 
@@ -38,8 +39,9 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
 
     void Start()
     {
-        arRaycastManager = FindObjectOfType<ARRaycastManager>();
-        placementIndicator.SetActive(false);   
+        arRaycastManager = GetComponent<ARRaycastManager>();
+        placementIndicator.SetActive(false);
+        benchMarkIsSet = false;
     }
 
     void Update()
@@ -48,17 +50,24 @@ public class SpreadObjs_onTheFloor : MonoBehaviour
 
         if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            //while (placedNum < maxNum)
+            //while (placedObjPrefabs.Count < maxNum)
             //{
-            //    Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(-size.z, size.z));
-            //    Instantiate(randomObjArray[Random.Range(0, randomObjArray.Length)], spawnPos, placementPose.rotation);
-            //    placedNum++;
+            //    Vector3 spawnPos = placementPose.position + new Vector3(Random.Range(-size.x, size.x), 0, Random.Range(0, size.z));
+            //    spawnedObj = Instantiate(randomObjArray[Random.Range(0, randomObjArray.Length)], spawnPos, placementPose.rotation);
+            //    placedObjPrefabs.Add(spawnedObj);
             //}
+
+            if (!benchMarkIsSet)
+            {
+                Vector3 spawnPos = placementPose.position + new Vector3(0, -0.7f, 0);
+                bodyParts.SetActive(true);
+                bodyParts.transform.SetPositionAndRotation(spawnPos, placementPose.rotation);
+                benchMarkIsSet = true;
+            }
 
             if (onSpawnObjValid != null)
             {
                 onSpawnObjValid();
-                benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
             }
         }
 

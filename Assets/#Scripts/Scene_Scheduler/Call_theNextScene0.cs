@@ -51,6 +51,8 @@ public class Call_theNextScene0: MonoBehaviour
     private GameObject guide01;
     [SerializeField]
     private GameObject guide02;
+    [SerializeField]
+    private GameObject placementIndicator;
     [Header("information Guide on")]
     [SerializeField]
     private GameObject guide03;
@@ -80,6 +82,7 @@ public class Call_theNextScene0: MonoBehaviour
             somethingToShowOnTime.transform.SetPositionAndRotation(ref_pos.position, ref_pos.rotation);
             guide01.SetActive(false);
             guide02.SetActive(false);
+            placementIndicator.SetActive(false);
             guide03.SetActive(true);
         }
     }

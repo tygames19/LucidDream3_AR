@@ -5527,7 +5527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69a7209947958d4ba08540eff270630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetAngle: -42
+  targetAngle: 42
   objectToRotate: {fileID: 1337249279546553966}
   duration: 10
 --- !u!1 &1337249279546553967
@@ -11988,6 +11988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1337249279546553701}
   - component: {fileID: 1337249279546553502}
+  - component: {fileID: 5159702969890994943}
   m_Layer: 0
   m_Name: Beta_Joints
   m_TagString: Untagged
@@ -12016,7 +12017,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337249279546554337}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -12113,6 +12114,25 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.039820343, y: -0.13971752, z: 0.081381395}
     m_Extent: {x: 0.25506824, y: 0.93029886, z: 0.34572643}
   m_DirtyAABB: 0
+--- !u!95 &5159702969890994943
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337249279546554337}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5040dcc537f719a4b96d087536c2d3e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1337249279546554356
 GameObject:
   m_ObjectHideFlags: 0

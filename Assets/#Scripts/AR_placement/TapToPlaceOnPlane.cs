@@ -17,6 +17,7 @@ public class TapToPlaceOnPlane : MonoBehaviour
 
     List<GameObject> placedPrefabObjs = new List<GameObject>();
     bool placementPoseIsValid = false;
+    bool benchMarkIsSet = false;
 
     GameObject spawnedObject;
 
@@ -31,8 +32,8 @@ public class TapToPlaceOnPlane : MonoBehaviour
     private Transform benchMark;
 
     // Shuffle random number without repeating
-    int[] arrayNum = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }; // = randomobjectsArray number
-    List<int> forShuffle = null;
+    //int[] arrayNum = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }; // = randomobjectsArray number
+    //List<int> forShuffle = null;
 
     public static event Action onPlacedObjValid;
 
@@ -40,9 +41,10 @@ public class TapToPlaceOnPlane : MonoBehaviour
 
     void Start()
     {
-        arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        arRaycastManager = GetComponent<ARRaycastManager>();
         placementIndicator.SetActive(false);
-        forShuffle.AddRange(arrayNum);
+        benchMarkIsSet = false;
+        //forShuffle.AddRange(arrayNum);
     }
 
     void Update()
@@ -51,7 +53,6 @@ public class TapToPlaceOnPlane : MonoBehaviour
 
         if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            PlaceObjects();
 
             if (placedPrefabObjs.Count > maxNumForSpawn)
             {   
@@ -60,20 +61,28 @@ public class TapToPlaceOnPlane : MonoBehaviour
                 placedPrefabObjs.RemoveAt(0);
                 PlaceObjects();
             }
+            else
+            {
+                PlaceObjects();
+            }
 
             // activate at the first touch 
-            if (onPlacedObjValid != null)
+            if (onPlacedObjValid != null && benchMarkIsSet == false)
             {
                 onPlacedObjValid();
-
-                benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+                
+                if (!benchMarkIsSet)
+                {
+                    benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+                    benchMarkIsSet = true;
+                }
             }
         }
     }
 
     private void PlaceObjects()
     {
-        spawnedObject = Instantiate(randomObjectsArray[GetUniqueRandom(true)], placementPose.position, placementPose.rotation);
+        spawnedObject = Instantiate(randomObjectsArray[Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
         placedPrefabObjs.Add(spawnedObject);
     }
 
@@ -102,22 +111,23 @@ public class TapToPlaceOnPlane : MonoBehaviour
         }
     }
 
-    int GetUniqueRandom(bool reloadEmptyList)
-    {
-        if (forShuffle.Count == 0)
-        {
-            if (reloadEmptyList)
-            {
-                forShuffle.AddRange(arrayNum);
-            }
-            else
-            {
-                return -1; // finite loop. 
-            }
-        }
-        int rand = Random.Range(0, forShuffle.Count);
-        int value = forShuffle[rand];
-        forShuffle.RemoveAt(rand);
-        return value;
-    }
+    //int GetUniqueRandom(bool reloadEmptyList)
+    //{
+    //    if (forShuffle.Count == 0)
+    //    {
+    //        if (reloadEmptyList)
+    //        {
+    //            forShuffle.AddRange(arrayNum);
+    //        }
+    //        else
+    //        {
+    //            return -1; // finite loop. 
+    //        }
+    //    }
+
+    //    int rand = Random.Range(0, forShuffle.Count);
+    //    int value = forShuffle[rand];
+    //    forShuffle.RemoveAt(rand);
+    //    return value;
+    //}
 }

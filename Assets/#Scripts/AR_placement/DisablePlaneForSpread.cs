@@ -42,15 +42,9 @@ public class DisablePlaneForSpread : MonoBehaviour
         set => _arPlaneManager = value;
     }
 
-    [SerializeField]
-    private Transform benchMark;
-
     [Header("Appear at the first touch")]
     [SerializeField]
     private GameObject glitch;
-
-    [SerializeField]
-    private GameObject bodyParts;
 
     [SerializeField]
     private GameObject guide01;
@@ -79,7 +73,7 @@ public class DisablePlaneForSpread : MonoBehaviour
             _pointCloudManager.SetTrackablesActive(false);
             _pointCloudManager.enabled = false;
 
-            placementIndicator.SetActive(false);
+            Destroy(placementIndicator);
         }
 
         if (_disablePlaneRender)
@@ -90,8 +84,7 @@ public class DisablePlaneForSpread : MonoBehaviour
             guide02.SetActive(false);
             guide01.SetActive(true);
 
-            bodyParts.SetActive(true);
-            bodyParts.transform.SetPositionAndRotation(benchMark.position, benchMark.rotation);
+            glitch.GetComponent<Animator>().enabled = true;
             glitch.GetComponent<Animator>().Play("GlitchAnim_custom01");
         }
     }

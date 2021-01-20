@@ -49,13 +49,7 @@ public class DisablePlaneForMatrix : MonoBehaviour
 
     [Header("Appear at the first touch")]
     [SerializeField]
-    private GameObject matrixPeopleSpawn;
-
-    [SerializeField]
     private GameObject guide01;
-
-    [SerializeField]
-    private Transform benchMark;
 
     [Header("Need to turn off")]
     [SerializeField]
@@ -78,10 +72,6 @@ public class DisablePlaneForMatrix : MonoBehaviour
     {
         guide00.SetActive(false);
         guide01.SetActive(true);
-
-        placementIndicator.SetActive(false);
-
-        matrixPeopleSpawn.SetActive(true);
-        matrixPeopleSpawn.transform.SetPositionAndRotation(benchMark.position, benchMark.rotation);
+        Destroy(placementIndicator);
     }
 }

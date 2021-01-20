@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Trig_floor
+  - Matrix_Pillar
   layers:
   - Default
   - TransparentFX

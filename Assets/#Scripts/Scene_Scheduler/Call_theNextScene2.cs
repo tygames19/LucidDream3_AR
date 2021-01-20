@@ -11,10 +11,6 @@ public class Call_theNextScene2 : MonoBehaviour
     [SerializeField]
     private GameObject somethingToShowOnTime01;
 
-    [Header("Destroy Matrix Pillar & People")]
-    [SerializeField]
-    private GameObject somethingToHideOnTime;
-
     DateTime now;
     DateTime nextAppear01_scheduledTime;
     DateTime nextScene_scheduledTime;
@@ -30,7 +26,7 @@ public class Call_theNextScene2 : MonoBehaviour
     [SerializeField]
     private Transform benchMark;
 
-    [Header("St To Show On Time 01")]
+    [Header("Falling cubes' time")]
     [SerializeField]
     private int nextA1_Hour;
     [SerializeField]
@@ -68,7 +64,6 @@ public class Call_theNextScene2 : MonoBehaviour
         nextAppear01_scheduledTime = new DateTime(year, month, day, nextA1_Hour, nextA1_Min, nextA1_Sec);
         nextScene_scheduledTime = new DateTime(year, month, day, nextS_Hour, nextS_Min, nextS_Sec);
     }
-
   
     void Update()
     {
@@ -90,7 +85,8 @@ public class Call_theNextScene2 : MonoBehaviour
 
             matrixManager.SetActive(false);
 
-            Destroy(somethingToHideOnTime);
+            CancelInvoke();
+            Destroy(GameObject.FindWithTag("Matrix_Pillar"));
 
             guide01.SetActive(false);
             guide02.SetActive(true);
@@ -98,7 +94,6 @@ public class Call_theNextScene2 : MonoBehaviour
             somethingToShowOnTime01.SetActive(true);
             somethingToShowOnTime01.transform.SetPositionAndRotation(benchMark.position, benchMark.rotation);
         }
-
     }
 
 }
