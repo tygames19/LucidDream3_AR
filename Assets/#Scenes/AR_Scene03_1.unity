@@ -187,11 +187,10 @@ MonoBehaviour:
   cubePrefab: {fileID: 3545091098405031932, guid: b5a823a26994975419d9f959c277ccdf,
     type: 3}
   benchMark: {fileID: 944886082}
-  trig_floor: {fileID: 1858309063817376576}
-  size: {x: 25, y: 0, z: 25}
-  height: 15
-  minInterval: 2
-  maxInterval: 5
+  size: {x: 5, y: 0, z: 5}
+  height: 30
+  minInterval: 1
+  maxInterval: 4
 --- !u!4 &126743975
 Transform:
   m_ObjectHideFlags: 0
@@ -200,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126743973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 30, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -780,6 +779,7 @@ GameObject:
   - component: {fileID: 992500782}
   - component: {fileID: 992500783}
   - component: {fileID: 992500785}
+  - component: {fileID: 992500786}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -872,7 +872,7 @@ MonoBehaviour:
     type: 3}
   matrixPeople: {fileID: 7650634415513916379, guid: b74820f7cfbfefc43906b82edfe5efa6,
     type: 3}
-  size: {x: 30, y: 0, z: 30}
+  size: {x: 20, y: 0, z: 20}
   maxNum: 20
   placementIndicator: {fileID: 7325842873914557180}
   benchMark: {fileID: 944886082}
@@ -905,6 +905,19 @@ MonoBehaviour:
   guide01: {fileID: 1197419377}
   placementIndicator: {fileID: 7325842873914557180}
   guide00: {fileID: 1572804175}
+--- !u!114 &992500786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992500777}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9889044a37872f41bcd9cc9fca71679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arCamera: {fileID: 1359620282}
 --- !u!1 &1074010398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,19 +1740,22 @@ MonoBehaviour:
   somethingToShowOnTime01: {fileID: 126743973}
   year: 2021
   month: 1
-  day: 20
+  day: 24
   benchMark: {fileID: 944886082}
-  nextA1_Hour: 20
-  nextA1_Min: 46
-  nextA1_Sec: 0
-  nextS_Hour: 20
-  nextS_Min: 50
-  nextS_Sec: 0
+  nextA1_Hour: 17
+  nextA1_Min: 37
+  nextA1_Sec: 6
+  nextS_Hour: 17
+  nextS_Min: 43
+  nextS_Sec: 32
   _arPlaneManager: {fileID: 992500780}
   _pointCloudManager: {fileID: 992500784}
   matrixManager: {fileID: 1863830904}
   guide01: {fileID: 1197419377}
+  changeARSessionScale01: {fileID: 992500777}
   guide02: {fileID: 1459084277}
+  trig_floor: {fileID: 1858309063817376576}
+  changeARSessionScale02: {fileID: 992500777}
 --- !u!1 &1398570936
 GameObject:
   m_ObjectHideFlags: 0
@@ -2924,7 +2940,7 @@ Transform:
   m_GameObject: {fileID: 1858309063817376576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 0.01, z: 25}
+  m_LocalScale: {x: 25, y: 0.4, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13

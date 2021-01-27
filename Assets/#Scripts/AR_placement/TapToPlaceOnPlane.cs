@@ -15,6 +15,8 @@ public class TapToPlaceOnPlane : MonoBehaviour
     [SerializeField]
     private int maxNumForSpawn = 1;
 
+    private int placedPrefab = 0;
+
     List<GameObject> placedPrefabObjs = new List<GameObject>();
     bool placementPoseIsValid = false;
     bool benchMarkIsSet = false;
@@ -54,23 +56,23 @@ public class TapToPlaceOnPlane : MonoBehaviour
         if (placementPoseIsValid == true && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
 
-            if (placedPrefabObjs.Count > maxNumForSpawn)
-            {   
-                // 맥스 이상되면 지워라.
-                Destroy(placedPrefabObjs[0].gameObject);
-                placedPrefabObjs.RemoveAt(0);
+            if (placedPrefab < maxNumForSpawn)
+            {
                 PlaceObjects();
             }
             else
             {
-                PlaceObjects();
+                // 맥스 이상되면 지워라.
+                Destroy(placedPrefabObjs[0].gameObject);
+                placedPrefabObjs.RemoveAt(0);
+                placedPrefab--;
             }
 
             // activate at the first touch 
             if (onPlacedObjValid != null && benchMarkIsSet == false)
             {
                 onPlacedObjValid();
-                
+
                 if (!benchMarkIsSet)
                 {
                     benchMark.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
@@ -84,6 +86,7 @@ public class TapToPlaceOnPlane : MonoBehaviour
     {
         spawnedObject = Instantiate(randomObjectsArray[Random.Range(0, randomObjectsArray.Length)], placementPose.position, placementPose.rotation);
         placedPrefabObjs.Add(spawnedObject);
+        placedPrefab++;
     }
 
     private void UpdatePlacementPose()

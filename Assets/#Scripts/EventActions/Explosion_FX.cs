@@ -42,8 +42,8 @@ public class Explosion_FX : MonoBehaviour
     void Update()
     {
         // Rotate the cube at the random angle
-        float randomAngle = Random.Range(0, 1);
-        transform.Rotate(new Vector3(randomAngle, randomAngle, randomAngle) * (rotationSpeed * Time.deltaTime));
+        //float randomAngle = Random.Range(0, 1);
+        //transform.Rotate(new Vector3(randomAngle, randomAngle, randomAngle) * (rotationSpeed * Time.deltaTime));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -51,16 +51,16 @@ public class Explosion_FX : MonoBehaviour
         if (collision.collider.CompareTag("Trig_floor"))
         {
             DeathParticleSpawn();
+            //Destroy(gameObject, 15);
         }
     }
 
     public void DeathParticleSpawn()
     {
-        GameObject colliderFloor = GameObject.FindWithTag("Trig_floor");
-        Vector3 colliderPos = gameObject.transform.position + new Vector3 (0, colliderFloor.transform.position.y, 0);
-        Instantiate(deathParticle, colliderPos, Quaternion.identity);
-        Destroy(gameObject);
-        //Debug.Log(transform.position);
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+        Destroy(gameObject, 5);
+        // Debug.Log(transform.position);
     }
 
     //public void Explode()

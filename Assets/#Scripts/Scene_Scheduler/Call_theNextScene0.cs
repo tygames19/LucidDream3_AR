@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
 
 public class Call_theNextScene0: MonoBehaviour
 {
@@ -53,6 +54,9 @@ public class Call_theNextScene0: MonoBehaviour
     private GameObject guide02;
     [SerializeField]
     private GameObject placementIndicator;
+    [SerializeField]
+    private ARPlaneManager _arPlaneManager;
+
     [Header("information Guide on")]
     [SerializeField]
     private GameObject guide03;
@@ -77,13 +81,20 @@ public class Call_theNextScene0: MonoBehaviour
         int onTime = DateTime.Compare(now, nextAppear_scheduledTime);
         if (onTime > 0)
         {
-            Destroy(somethingToHideOnTime);  
+            Destroy(somethingToHideOnTime);
+
+            _arPlaneManager.SetTrackablesActive(false);
+            _arPlaneManager.enabled = false;
+
+            Destroy(GameObject.FindWithTag("dk_obj"));
+            Destroy(placementIndicator);
+
             somethingToShowOnTime.SetActive(true);
             somethingToShowOnTime.transform.SetPositionAndRotation(ref_pos.position, ref_pos.rotation);
             guide01.SetActive(false);
             guide02.SetActive(false);
-            placementIndicator.SetActive(false);
             guide03.SetActive(true);
+
         }
     }
 

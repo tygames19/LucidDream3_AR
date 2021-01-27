@@ -16,12 +16,42 @@ MonoBehaviour:
   m_GuidHigh: 5826752554685223612
   m_Images:
   - m_SerializedGuid:
-      m_GuidLow: 5741192414009224990
-      m_GuidHigh: 5704937284622759079
+      m_GuidLow: 5519831908510155618
+      m_GuidHigh: 14804648262251041190
     m_SerializedTextureGuid:
-      m_GuidLow: 16376278733336263236
-      m_GuidHigh: 79420526602947993
-    m_Size: {x: 0.1, y: 0.10185185}
+      m_GuidLow: 7062951273219778878
+      m_GuidHigh: 14140615390210806280
+    m_Size: {x: 0.3, y: 0.3}
     m_SpecifySize: 1
-    m_Name: picasso01
+    m_Name: Lucid_IT_01
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4698135293089139770
+      m_GuidHigh: 13532721426523230090
+    m_SerializedTextureGuid:
+      m_GuidLow: 8742626433928583452
+      m_GuidHigh: 10842850322784258987
+    m_Size: {x: 0.3, y: 0.29970092}
+    m_SpecifySize: 1
+    m_Name: Lucid_IT_02
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5056364636677919836
+      m_GuidHigh: 4504383624112289672
+    m_SerializedTextureGuid:
+      m_GuidLow: 13475954460227846004
+      m_GuidHigh: 1585358339859445915
+    m_Size: {x: 0.3, y: 0.29970092}
+    m_SpecifySize: 1
+    m_Name: Lucid_IT_03
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5643209709753120506
+      m_GuidHigh: 18200960101764765368
+    m_SerializedTextureGuid:
+      m_GuidLow: 14061619640682430649
+      m_GuidHigh: 1268891602400598330
+    m_Size: {x: 0.3, y: 0.3}
+    m_SpecifySize: 1
+    m_Name: Lucid_IT_04
     m_Texture: {fileID: 0}

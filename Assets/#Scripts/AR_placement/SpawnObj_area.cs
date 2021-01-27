@@ -8,6 +8,8 @@ public class SpawnObj_area : MonoBehaviour
     [SerializeField]
     int maxPlacedNum;
 
+    int placedNum;
+
     [SerializeField]
     private GameObject[] placedPrefabs;
 
@@ -38,17 +40,18 @@ public class SpawnObj_area : MonoBehaviour
     void SpawnEverySec()
     {
         /// Matrix People Spawn.
-        if (placedPrefabObjs.Count < maxPlacedNum)
+        if (placedNum < maxPlacedNum)
         {
             Vector3 mp_pos = randomPos[Random.Range(0, randomPos.Length)].transform.position;
             spawnedObject = Instantiate(placedPrefabs[Random.Range(0, placedPrefabs.Length)], mp_pos, ref_pos.rotation);
             placedPrefabObjs.Add(spawnedObject);
+            placedNum++;
         }
     }
 
     void Update()
     {
-        Destroy(placedPrefabObjs[0], 13);  
+            Destroy(placedPrefabObjs[0], 13);
     }
 
 

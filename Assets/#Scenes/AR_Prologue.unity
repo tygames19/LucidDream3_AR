@@ -1300,12 +1300,12 @@ MonoBehaviour:
   - {fileID: 4916249137317714372, guid: 86a7a84c952599242b521119f541873c, type: 3}
   - {fileID: 7198425280763800766, guid: 05e7306a89a190e49bd0fe8133592ba3, type: 3}
   - {fileID: 6919378488179772655, guid: 4ba90b7dde44d71419d2afbf59195f30, type: 3}
-  - {fileID: 4564995759034020841, guid: 1dd7d9159a5dee742982ab80dd222263, type: 3}
-  - {fileID: 8917480157483470723, guid: c6dc721ef74d8be4daa946d45b55ce4f, type: 3}
-  - {fileID: 7074702533448611200, guid: 28535e388243ee24fa50c5720ef7be18, type: 3}
   - {fileID: 2535628075521786433, guid: 0b23d4598335d9c4da9dca5984a1b89a, type: 3}
   - {fileID: 8321819191894973722, guid: b359250d8a7480c4bb8bb4cb34a0393a, type: 3}
   - {fileID: 6356808174783304692, guid: 0362506bde295524098bc6dbc0fd592a, type: 3}
+  - {fileID: 4564995759034020841, guid: 1dd7d9159a5dee742982ab80dd222263, type: 3}
+  - {fileID: 8917480157483470723, guid: c6dc721ef74d8be4daa946d45b55ce4f, type: 3}
+  - {fileID: 7074702533448611200, guid: 28535e388243ee24fa50c5720ef7be18, type: 3}
   - {fileID: 3101443935392590309, guid: 28bf1b4bc762b6247b3246662d2f9fa4, type: 3}
   - {fileID: 4471851719337725216, guid: e2363fb8142df354d9d69f2b98e1002e, type: 3}
   - {fileID: 1893843248645257911, guid: fca885b557707d4449f38509ada1b585, type: 3}
@@ -2322,7 +2322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1765432498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2340,16 +2340,17 @@ MonoBehaviour:
   ref_pos: {fileID: 356433236}
   year: 2021
   month: 1
-  day: 20
-  nextA_Hour: 14
-  nextA_Min: 44
+  day: 24
+  nextA_Hour: 17
+  nextA_Min: 8
   nextA_Sec: 0
-  nextS_Hour: 14
-  nextS_Min: 50
-  nextS_Sec: 0
+  nextS_Hour: 17
+  nextS_Min: 16
+  nextS_Sec: 2
   guide01: {fileID: 1006289418}
   guide02: {fileID: 2143734448}
   placementIndicator: {fileID: 438794077928780860}
+  _arPlaneManager: {fileID: 992500780}
   guide03: {fileID: 490604969}
 --- !u!4 &1765432499
 Transform:

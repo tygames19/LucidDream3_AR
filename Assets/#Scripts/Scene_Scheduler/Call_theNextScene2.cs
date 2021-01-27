@@ -55,9 +55,18 @@ public class Call_theNextScene2 : MonoBehaviour
     [SerializeField]
     private GameObject guide01;
 
+    [SerializeField]
+    private GameObject changeARSessionScale01;
+
     [Header("Need To Turn On")]
     [SerializeField]
     private GameObject guide02;
+
+    [SerializeField]
+    private GameObject trig_floor;
+
+    [SerializeField]
+    private GameObject changeARSessionScale02;
 
     void Start()
     {
@@ -88,11 +97,17 @@ public class Call_theNextScene2 : MonoBehaviour
             CancelInvoke();
             Destroy(GameObject.FindWithTag("Matrix_Pillar"));
 
+            changeARSessionScale01.GetComponent<AR_SessionOrigin_Scale_Change>().enabled = false;
+            changeARSessionScale02.GetComponent<AR_SessionOrigin_Scale_Change2>().enabled = true;
+
             guide01.SetActive(false);
             guide02.SetActive(true);
 
             somethingToShowOnTime01.SetActive(true);
             somethingToShowOnTime01.transform.SetPositionAndRotation(benchMark.position, benchMark.rotation);
+
+            trig_floor.SetActive(true);
+            trig_floor.transform.SetPositionAndRotation(benchMark.position + new Vector3(0, -0.6f, 0), benchMark.rotation);
         }
     }
 

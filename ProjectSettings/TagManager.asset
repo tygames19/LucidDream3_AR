@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Trig_floor
   - Matrix_Pillar
+  - Falling_Cube
+  - dk_obj
   layers:
   - Default
   - TransparentFX

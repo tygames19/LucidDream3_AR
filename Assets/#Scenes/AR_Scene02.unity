@@ -276,7 +276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &116083316
 Transform:
   m_ObjectHideFlags: 0
@@ -305,10 +305,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   year: 2021
   month: 1
-  day: 20
-  nextS_Hour: 15
-  nextS_Min: 0
-  nextS_Sec: 0
+  day: 24
+  nextS_Hour: 17
+  nextS_Min: 23
+  nextS_Sec: 2
 --- !u!1 &126159742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1519,6 @@ GameObject:
   - component: {fileID: 992500783}
   - component: {fileID: 992500784}
   - component: {fileID: 992500786}
-  - component: {fileID: 992500787}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -1668,23 +1667,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedLibrary: {fileID: 11400000, guid: 4e3c15c1c33515f47b286605e9e1d4d9,
     type: 2}
-  m_MaxNumberOfMovingImages: 1
+  m_MaxNumberOfMovingImages: 4
   m_TrackedImagePrefab: {fileID: 8013369354775731562, guid: 632680d5e6ad3204ebc6eaafac439879,
     type: 3}
---- !u!114 &992500787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992500777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0be793320a1974fa1ddf9e7700752a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  guide01: {fileID: 1167482733}
-  guide03: {fileID: 1738975530}
 --- !u!1 &1167482733
 GameObject:
   m_ObjectHideFlags: 0

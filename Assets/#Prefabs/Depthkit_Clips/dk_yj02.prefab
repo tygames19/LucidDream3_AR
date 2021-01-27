@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 8917480157483470732}
   m_Layer: 0
   m_Name: dk_yj02
-  m_TagString: Untagged
+  m_TagString: dk_obj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -14,9 +14,6 @@ public class FallingCubes : MonoBehaviour
     private Transform benchMark;
 
     [SerializeField]
-    private GameObject trig_floor;
-
-    [SerializeField]
     private Vector3 size;
 
     [SerializeField]
@@ -30,8 +27,6 @@ public class FallingCubes : MonoBehaviour
 
     void Start()
     {
-        trig_floor.SetActive(true);
-        trig_floor.transform.SetPositionAndRotation(benchMark.position + new Vector3 (0, -0.6f, 0), benchMark.rotation);
         StartCoroutine(SpawnFallingCubes());
     }
 
@@ -41,7 +36,8 @@ public class FallingCubes : MonoBehaviour
         while (true)
         {
             int randomInterval = (int)Random.Range(minInterval, maxInterval);
-            Vector3 randomPos = benchMark.position + new Vector3(Random.Range(-size.x, size.x), height, Random.Range(0, size.z));
+            Vector3 randomPos = benchMark.position + new Vector3(Random.Range(-size.x, size.x), height, Random.Range(-size.z, size.z));
+            cubePrefab.transform.localScale = new Vector3 (2, 2, 2);
             Instantiate(cubePrefab, randomPos, benchMark.rotation);
             yield return new WaitForSeconds(randomInterval);
         }
